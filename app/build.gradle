@@ -267,9 +267,15 @@ rustAbis.each { abi ->
             // the Windows .exe name. This avoids relying on Java's handling
             // of Windows executable extensions.
             def findNdkTool = { String toolName ->
+                // On Windows the NDK directory can contain both a wrapper
+                // without an extension and the real PE executable. Gradle's
+                // Exec task must receive the .exe path explicitly; otherwise
+                // ProcessBuilder can try to execute the extensionless wrapper
+                // and fail with "could not exec the linker".
                 def candidates = [
+                    new File(prebuilt, "bin/${toolName}.exe"),
                     new File(prebuilt, "bin/${toolName}"),
-                    new File(prebuilt, "bin/${toolName}.exe")
+                    new File(prebuilt, "bin/${toolName}.cmd")
                 ]
                 candidates.find { it.isFile() }
             }

@@ -258,17 +258,32 @@ rustAbis.each { abi ->
             if (prebuilt == null) {
                 throw new GradleException("No NDK LLVM toolchain found under ${prebuiltParent}")
             }
-            // Windows NDK tools are shipped with the .exe suffix. Java's
-            // File.exists() does not automatically append it, so resolve the
-            // executable suffix explicitly for cross-platform builds.
-            def executableSuffix = System.getProperty("os.name").toLowerCase().contains("windows") ? ".exe" : ""
-            def clang = new File(prebuilt, "bin/${clangName}${executableSuffix}")
-            def ar = new File(prebuilt, "bin/llvm-ar${executableSuffix}")
-            def ranlib = new File(prebuilt, "bin/llvm-ranlib${executableSuffix}")
+            // Resolve NDK executables by checking both the Unix name and
+            // the Windows .exe name. This avoids relying on Java's handling
+            // of Windows executable extensions.
+            def findNdkTool = { String toolName ->
+                def candidates = [
+                    new File(prebuilt, "bin/${toolName}"),
+                    new File(prebuilt, "bin/${toolName}.exe")
+                ]
+                candidates.find { it.isFile() }
+            }
 
-            [clang, ar, ranlib].each {
-                if (!it.exists()) {
-                    throw new GradleException("Missing NDK tool: ${it}")
+            def clang = findNdkTool(clangName)
+            def ar = findNdkTool("llvm-ar")
+            def ranlib = findNdkTool("llvm-ranlib")
+
+            [clang, ar, ranlib].each { tool ->
+                if (tool == null) {
+                    def availableTools = new File(prebuilt, "bin").listFiles()
+                        ?.findAll { it.isFile() }
+                        ?.collect { it.name }
+                        ?.sort()
+                        ?.join(", ") ?: "(empty)"
+                    throw new GradleException(
+                        "Missing NDK tool in ${new File(prebuilt, "bin")}. " +
+                        "Available files: ${availableTools}"
+                    )
                 }
             }
 

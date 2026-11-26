@@ -15,12 +15,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = 'com.github.digitallyrefined.androidipcamera'
+    namespace = 'com.neibarbosa0692.pascamip'
     compileSdk = 36
     ndkVersion = "27.2.12479018"
 
     defaultConfig {
-        applicationId = "com.github.digitallyrefined.androidipcamera"
+        applicationId = "com.neibarbosa0692.pascamip"
         minSdk = 24
         targetSdk = 36
         versionCode = 200

@@ -258,9 +258,13 @@ rustAbis.each { abi ->
             if (prebuilt == null) {
                 throw new GradleException("No NDK LLVM toolchain found under ${prebuiltParent}")
             }
-            def clang = new File(prebuilt, "bin/${clangName}")
-            def ar = new File(prebuilt, "bin/llvm-ar")
-            def ranlib = new File(prebuilt, "bin/llvm-ranlib")
+            // Windows NDK tools are shipped with the .exe suffix. Java's
+            // File.exists() does not automatically append it, so resolve the
+            // executable suffix explicitly for cross-platform builds.
+            def executableSuffix = System.getProperty("os.name").toLowerCase().contains("windows") ? ".exe" : ""
+            def clang = new File(prebuilt, "bin/${clangName}${executableSuffix}")
+            def ar = new File(prebuilt, "bin/llvm-ar${executableSuffix}")
+            def ranlib = new File(prebuilt, "bin/llvm-ranlib${executableSuffix}")
 
             [clang, ar, ranlib].each {
                 if (!it.exists()) {

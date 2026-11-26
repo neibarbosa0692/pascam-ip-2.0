@@ -172,7 +172,12 @@ def resolveRustBinDir = {
             candidates << new File(entry)
         }
     }
-    candidates.find { new File(it, "cargo").canExecute() }
+
+    // On Windows rustup installs cargo.exe/rustc.exe. Do not assume the
+    // Unix executable name or rely on PATH inherited by the Gradle daemon.
+    candidates.find { dir ->
+        new File(dir, "cargo").isFile() || new File(dir, "cargo.exe").isFile()
+    }
 }
 
 def rustApiLevel = 24
@@ -312,7 +317,10 @@ rustAbis.each { abi ->
             // cargo shells out to rustc, so the toolchain's bin dir has to come first.
             def ambientPath = System.getenv("PATH") ?: ""
             environment "PATH", "${rustBin}${File.pathSeparator}${ambientPath}"
-            executable new File(rustBin, "cargo").absolutePath
+            def cargoExecutable = new File(rustBin, "cargo.exe").isFile()
+                ? new File(rustBin, "cargo.exe")
+                : new File(rustBin, "cargo")
+            executable cargoExecutable.absolutePath
         }
 
         inputs.files(fileTree(rustCrateDir) {

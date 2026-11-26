@@ -15,7 +15,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = 'com.neibarbosa0692.pascamip'
+    namespace = 'com.github.digitallyrefined.androidipcamera'
     compileSdk = 36
     ndkVersion = "27.2.12479018"
 

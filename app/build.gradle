@@ -190,13 +190,13 @@ def rustAbis = [
         taskSuffix: "Arm64",
         abi: "arm64-v8a",
         rustTarget: "aarch64-linux-android",
-        clang: "aarch64-linux-android${rustApiLevel}-clang",
+        clangTarget: "aarch64-linux-android${rustApiLevel}",
     ],
     [
         taskSuffix: "Armv7",
         abi: "armeabi-v7a",
         rustTarget: "armv7-linux-androideabi",
-        clang: "armv7a-linux-androideabi${rustApiLevel}-clang",
+        clangTarget: "armv7a-linux-androideabi${rustApiLevel}",
     ],
 ]
 
@@ -205,7 +205,7 @@ rustAbis.each { abi ->
     def taskName = "buildOpenTunnelNative${abi.taskSuffix}"
     def rustTarget = abi.rustTarget
     def abiName = abi.abi
-    def clangName = abi.clang
+    def clangTarget = abi.clangTarget
     rustTaskNames << taskName
 
     tasks.register(taskName, Exec) {
@@ -263,26 +263,14 @@ rustAbis.each { abi ->
             if (prebuilt == null) {
                 throw new GradleException("No NDK LLVM toolchain found under ${prebuiltParent}")
             }
-            // Resolve NDK executables by checking both the Unix name and
-            // the Windows .exe name. This avoids relying on Java's handling
-            // of Windows executable extensions.
-            def findNdkTool = { String toolName ->
-                // On Windows the NDK directory can contain both a wrapper
-                // without an extension and the real PE executable. Gradle's
-                // Exec task must receive the .exe path explicitly; otherwise
-                // ProcessBuilder can try to execute the extensionless wrapper
-                // and fail with "could not exec the linker".
-                def candidates = [
-                    new File(prebuilt, "bin/${toolName}.exe"),
-                    new File(prebuilt, "bin/${toolName}"),
-                    new File(prebuilt, "bin/${toolName}.cmd")
-                ]
-                candidates.find { it.isFile() }
-            }
-
-            def clang = findNdkTool(clangName)
-            def ar = findNdkTool("llvm-ar")
-            def ranlib = findNdkTool("llvm-ranlib")
+            // On Windows the NDK's API-specific clang launcher may be a
+            // wrapper script without a directly executable extension. Use the
+            // real clang.exe and pass the Android target explicitly instead.
+            // This avoids ProcessBuilder failures such as:
+            // "could not exec the linker ... aarch64-linux-android24-clang".
+            def clang = new File(prebuilt, "bin/clang.exe")
+            def ar = new File(prebuilt, "bin/llvm-ar.exe")
+            def ranlib = new File(prebuilt, "bin/llvm-ranlib.exe")
 
             [clang, ar, ranlib].each { tool ->
                 if (tool == null) {
@@ -310,6 +298,10 @@ rustAbis.each { abi ->
             def allRustFlags = encodedRustFlags ? encodedRustFlags.split("\u001f", -1).toList() : []
             allRustFlags.addAll(rustRemapFlags)
             allRustFlags.addAll(rustLintFlags)
+            // clang.exe is the real Windows executable; tell it which Android
+            // API/ABI it is linking for (the API-specific NDK launcher normally
+            // supplies this target implicitly).
+            allRustFlags.addAll(["-C", "link-arg=--target=${clangTarget}"])
             environment "CARGO_ENCODED_RUSTFLAGS", allRustFlags.join("\u001f")
 
             def rustBin = resolveRustBinDir()

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pascam_blue">#1A237E</color>
-    <color name="pascam_blue_dark">#0D164F</color>
-    <color name="pascam_gold">#FFD54F</color>
+    <color name="pascam_yellow">#FFC107</color>
+    <color name="pascam_yellow_dark">#F2A900</color>
+    <color name="pascam_blue">#0757C9</color>
+    <color name="pascam_blue_dark">#063A8A</color>
+    <color name="pascam_cyan">#18D8F4</color>
     <color name="pascam_white">#FFFFFF</color>
 </resources>

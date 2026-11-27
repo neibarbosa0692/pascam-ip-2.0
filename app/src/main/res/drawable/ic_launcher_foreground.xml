@@ -5,21 +5,41 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
+    <!-- White cross from the official PasCam IP logo -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M43,7h22v14h14v22H65v14H43V43H29V21h14z" />
+
+    <!-- Network nodes behind the camera -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,27a4,4 0,1 0,8 0a4,4 0,1 0,-8 0M88,25a4,4 0,1 0,8 0a4,4 0,1 0,-8 0M12,71a4,4 0,1 0,8 0a4,4 0,1 0,-8 0M89,70a4,4 0,1 0,8 0a4,4 0,1 0,-8 0" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,29 L31,39 L18,68 L31,61 M90,29 L77,39 L90,68 L77,61" />
+
     <!-- Camera body -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M28,35 C28,31.7 30.7,29 34,29 H55 L62,22 H76 C79.3,22 82,24.7 82,28 V68 C82,71.3 79.3,74 76,74 H34 C30.7,74 28,71.3 28,68 Z"/>
+        android:pathData="M24,51h60a8,8 0,0 1,8 8v25a8,8 0,0 1,-8 8H24a8,8 0,0 1,-8 -8V59a8,8 0,0 1,8 -8z" />
 
-    <!-- Lens -->
+    <!-- Lens rings -->
     <path
-        android:fillColor="#1A237E"
-        android:pathData="M55,39 A14,14 0,1 0,55 67 A14,14 0,1 0,55 39 Z"/>
+        android:fillColor="#202A3A"
+        android:pathData="M54,57a18,18 0,1 0,0 36a18,18 0,1 0,0 -36z" />
+    <path
+        android:fillColor="#0757C9"
+        android:pathData="M54,61a14,14 0,1 0,0 28a14,14 0,1 0,0 -28z" />
+    <path
+        android:fillColor="#18D8F4"
+        android:pathData="M54,65a10,10 0,1 0,0 20a10,10 0,1 0,0 -20z" />
+    <path
+        android:fillColor="#061A36"
+        android:pathData="M54,69a6,6 0,1 0,0 12a6,6 0,1 0,0 -12z" />
 
-    <!-- Transmission waves -->
+    <!-- Blue wave used in the official logo -->
     <path
-        android:fillColor="#FFD54F"
-        android:pathData="M75,37 L79,34 C85,40 88,47 88,55 C88,63 85,70 79,76 L75,73 C80,68 83,62 83,55 C83,48 80,42 75,37 Z"/>
-    <path
-        android:fillColor="#FFD54F"
-        android:pathData="M82,29 L86,26 C94,34 98,44 98,55 C98,66 94,76 86,84 L82,81 C89,74 93,65 93,55 C93,45 89,36 82,29 Z"/>
+        android:fillColor="#0757C9"
+        android:pathData="M0,94 C20,84 36,88 54,94 C72,100 89,100 108,88 V108 H0 Z" />
 </vector>

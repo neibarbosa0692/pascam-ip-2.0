@@ -3,15 +3,23 @@
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
-    android:viewportHeight="108"
-    android:tint="#FFFFFF">
-    <group
-        android:scaleX="2.2"
-        android:scaleY="2.2"
-        android:translateX="27"
-        android:translateY="27">
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M17,10.5V7c0,-0.55 -0.45,-1 -1,-1H4c-0.55,0 -1,0.45 -1,1v10c0,0.55 0.45,1 1,1h12c0.55,0 1,-0.45 1,-1v-3.5l4,4v-11l-4,4z"/>
-    </group>
+    android:viewportHeight="108">
+
+    <!-- Camera body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,35 C28,31.7 30.7,29 34,29 H55 L62,22 H76 C79.3,22 82,24.7 82,28 V68 C82,71.3 79.3,74 76,74 H34 C30.7,74 28,71.3 28,68 Z"/>
+
+    <!-- Lens -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M55,39 A14,14 0,1 0,55 67 A14,14 0,1 0,55 39 Z"/>
+
+    <!-- Transmission waves -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M75,37 L79,34 C85,40 88,47 88,55 C88,63 85,70 79,76 L75,73 C80,68 83,62 83,55 C83,48 80,42 75,37 Z"/>
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M82,29 L86,26 C94,34 98,44 98,55 C98,66 94,76 86,84 L82,81 C89,74 93,65 93,55 C93,45 89,36 82,29 Z"/>
 </vector>

@@ -1,45 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="128dp"
-    android:height="128dp"
-    android:viewportWidth="128"
-    android:viewportHeight="128">
-
-    <!-- PasCam IP official visual identity adapted for the Android launch mark -->
-    <path
-        android:fillColor="#FFC107"
-        android:pathData="M0,0h128v128h-128z" />
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M52,9h24v15h15v24H76v15H52V48H37V24h15z" />
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M24,31a5,5 0,1 0,10 0a5,5 0,1 0,-10 0M94,30a5,5 0,1 0,10 0a5,5 0,1 0,-10 0M22,77a5,5 0,1 0,10 0a5,5 0,1 0,-10 0M96,76a5,5 0,1 0,10 0a5,5 0,1 0,-10 0" />
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M28,34 L45,48 L28,76 L45,65 M99,34 L82,48 L99,76 L82,65" />
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M30,48h68c6,0 11,5 11,11v31c0,6 -5,11 -11,11H30c-6,0 -11,-5 -11,-11V59c0,-6 5,-11 11,-11z" />
-
-    <path
-        android:fillColor="#202A3A"
-        android:pathData="M64,53a23,23 0,1 0,0 46a23,23 0,1 0,0 -46z" />
-    <path
-        android:fillColor="#0757C9"
-        android:pathData="M64,58a18,18 0,1 0,0 36a18,18 0,1 0,0 -36z" />
-    <path
-        android:fillColor="#18D8F4"
-        android:pathData="M64,63a13,13 0,1 0,0 26a13,13 0,1 0,0 -26z" />
-    <path
-        android:fillColor="#061A36"
-        android:pathData="M64,68a8,8 0,1 0,0 16a8,8 0,1 0,0 -16z" />
-
-    <path
-        android:fillColor="#0757C9"
-        android:pathData="M0,103 C23,91 42,96 63,103 C84,110 104,107 128,94 V128 H0 Z" />
-</vector>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/pascam_ip_logo"
+    android:gravity="fill" />
